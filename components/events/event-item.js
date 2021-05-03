@@ -1,39 +1,41 @@
-import Link from "next/link"
-import classes from "../../styles/event-item.module.css"
-import { Button } from "@material-ui/core"
-import DateIcon from "@material-ui/icons/Event"
-import AddressIcon from "@material-ui/icons/LocationOn"
-import ArrowRightIcon from "@material-ui/icons/ArrowRight"
 import Image from "next/image"
 
-const eventItem = ({ title, image, date, location, id }) => {
-  const HRDate = new Date(date).toLocaleDateString("en-US", {
+import Button from "../ui/button"
+import DateIcon from "../icons/date-icon"
+import AddressIcon from "../icons/address-icon"
+import ArrowRightIcon from "../icons/arrow-right-icon"
+import classes from "./event-item.module.css"
+
+function EventItem(props) {
+  const { title, image, date, location, id } = props
+
+  const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
   })
-
-  const formattedAddress = location.replace(", ", "\n")
+  const formattedAddress = location?.replace(", ", "\n")
+  const exploreLink = `/events/${id}`
 
   return (
     <li className={classes.item}>
-      <Image src={"/" + image} alt={title} height={160} width={250} />
-      <div>
-        <h2>{title}</h2>
-        <div>
-          <DateIcon />
-          <time>{HRDate}</time>
-        </div>
-        <div>
-          <span>
+      <Image src={"/" + image} alt={title} width={250} height={160} />
+      <div className={classes.content}>
+        <div className={classes.summary}>
+          <h2>{title}</h2>
+          <div className={classes.date}>
+            <DateIcon />
+            <time>{humanReadableDate}</time>
+          </div>
+          <div className={classes.address}>
             <AddressIcon />
             <address>{formattedAddress}</address>
-          </span>
+          </div>
         </div>
-        <div>
-          <Button variant="outlined" href={`/events/${id}`}>
-            <span>
-              Explore Event
+        <div className={classes.actions}>
+          <Button link={exploreLink}>
+            <span>Explore Event</span>
+            <span className={classes.icon}>
               <ArrowRightIcon />
             </span>
           </Button>
@@ -43,4 +45,4 @@ const eventItem = ({ title, image, date, location, id }) => {
   )
 }
 
-export default eventItem
+export default EventItem

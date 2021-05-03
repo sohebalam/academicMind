@@ -1,4 +1,3 @@
-import { Button } from "@material-ui/core"
 import { useRef, useState } from "react"
 import classes from "./new-comment.module.css"
 
@@ -53,7 +52,7 @@ function NewComment(props) {
         <textarea id="comment" rows="5" ref={commentInputRef}></textarea>
       </div>
       {isInvalid && <p>Please enter a valid email address and comment!</p>}
-      <Button variant="outlined">Submit</Button>
+      <button>Submit</button>
     </form>
   )
 }

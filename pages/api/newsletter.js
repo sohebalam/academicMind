@@ -1,4 +1,4 @@
-// import { MongoClient } from "mongodb"
+import { MongoClient } from "mongodb"
 
 async function handler(req, res) {
   if (req.method === "POST") {
@@ -9,13 +9,13 @@ async function handler(req, res) {
       return
     }
 
-    // const client = MongoClient.connect(
-    //   "mongodb+srv://SebAlam:Mmilo123@cluster0.lb1qj.mongodb.net/newsletter?retryWrites=true&w=majority"
-    // )
-    // const db = client.db()
-    // await db.collection("emails").insertOne({ email: userEmail })
+    const client = await MongoClient.connect(
+      "mongodb+srv://SebAlam:Mmilo123@cluster0.lb1qj.mongodb.net/newsletter?retryWrites=true&w=majority"
+    )
+    const db = client.db()
+    await db.collection("emails").insertOne({ email: userEmail })
 
-    // await client.close()
+    await client.close()
     res.status(201).json({ messsage: "signed up !!!" })
   }
 }
